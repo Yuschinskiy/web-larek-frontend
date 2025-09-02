@@ -112,5 +112,3 @@ export interface IBasketView {
     show(): void;
     hide(): void;
 }
-
-// ... другие интерфейсы View и Presenter

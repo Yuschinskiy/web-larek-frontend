@@ -1,15 +1,23 @@
+export type ProductID = string;
+
 export interface IProduct {
     id: string;
     title: string;
-    description: string;
+    price: number;
     image: string;
-    price: number | null;
-    inBasket: boolean;
+    category?: string;
+    description?: string;
+    inBasket?: boolean;
 }
 
-export type ProductID = string;
+export type TBasketItem = {
+    id: string;
+    title: string;
+    price: number;
+    count?: number;
+};
 
 export interface IProductListView {
     render(products: IProduct[]): void;
-    updateProductState(productId: ProductID, inBasket: boolean): void;
+    updateProductState(productId: string, inBasket: boolean): void;
 }

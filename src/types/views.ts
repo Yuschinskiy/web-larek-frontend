@@ -1,6 +1,6 @@
 // types/views.ts
 import { IProduct, ProductID } from './product';
-import { IBasketItem } from './basket';
+import { IBasketItem, IBasketModel } from './basket';
 
 export interface IProductListView {
     render(products: IProduct[]): void;

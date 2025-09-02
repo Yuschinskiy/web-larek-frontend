@@ -1,21 +1,19 @@
-// types/basket.ts
-import { IProduct, ProductID } from './product';
-
-export interface IBasket {
-    items: IBasketItem[];
-    total: number;
-}
-
 export interface IBasketItem {
-    product: IProduct;
-    quantity: number;
+    id: string;
+    title: string;
+    price: number;
+    count?: number;
 }
 
 export interface IBasketModel {
     getItems(): IBasketItem[];
     addProduct(product: IProduct): void;
-    removeProduct(productId: ProductID): void;
+    removeProduct(productId: string): void;
     getTotal(): number;
     clear(): void;
-    getProductIds(): ProductID[];
+    getProductIds(): string[];
+    getItemCount(productId: string): number;
+    updateItemCount(productId: string, count: number): void;
 }
+
+export type TBasketItem = IBasketItem;

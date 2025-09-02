@@ -1,7 +1,6 @@
-import { IProductListView, ProductID } from '../types/product';
-import { IProduct } from '../types/product';
-import { EventEmitter } from '../components/base/events';
-import { AppEventType } from '../types/events';
+import { IProductListView, IProduct } from '../../types/product'; // Убедитесь, что IProduct импортирован
+import { EventEmitter } from './events';
+import { AppEventType } from '../../types/events';
 
 export class CatalogView implements IProductListView {
     private container: HTMLElement;
@@ -23,7 +22,7 @@ export class CatalogView implements IProductListView {
         });
     }
 
-    updateProductState(productId: ProductID, inBasket: boolean): void {
+    updateProductState(productId: string, inBasket: boolean): void {
         const card = this.container.querySelector(`[data-id="${productId}"]`);
         if (card) {
             const button = card.querySelector('button');
@@ -43,8 +42,9 @@ export class CatalogView implements IProductListView {
             <p>Цена: ${product.price ?? 'Бесплатно'}</p>
             <button>${product.inBasket ? 'Убрать из корзины' : 'В корзину'}</button>
         `;
-        card.addEventListener('click', () => {
-            this.events.emit(AppEventType.CATALOG_ITEM_CLICK, product);
+        card.querySelector('button')?.addEventListener('click', () => {
+            const eventType = product.inBasket ? AppEventType.BASKET_REMOVE : AppEventType.BASKET_ADD;
+            this.events.emit(eventType, product);
         });
         return card;
     }

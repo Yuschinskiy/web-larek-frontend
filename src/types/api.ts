@@ -15,15 +15,25 @@ export class ApiClient implements IApiClient {
     }
 
     async fetchProducts(): Promise<IProduct[]> {
-        const response = await this.api.get('/product') as { items: IProduct[] };
-        return response.items.map(product => ({
-            ...product,
-            inBasket: false,
-        }));
+        try {
+            const response = await this.api.get('/product') as { items: IProduct[] };
+            return response.items.map(product => ({
+                ...product,
+                inBasket: false,
+            }));
+        } catch (error) {
+            console.error('Ошибка при получении продуктов:', error);
+            throw error; // Пробрасываем ошибку дальше
+        }
     }
 
     async submitOrder(order: IOrderForm): Promise<{ id: string; status: string }> {
-        const response = await this.api.post('/order', order) as { id: string; status: string };
-        return response;
+        try {
+            const response = await this.api.post('/order', order) as { id: string; status: string };
+            return response;
+        } catch (error) {
+            console.error('Ошибка при отправке заказа:', error);
+            throw error; // Пробрасываем ошибку дальше
+        }
     }
 }

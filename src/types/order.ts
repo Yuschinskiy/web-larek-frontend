@@ -1,29 +1,23 @@
-// types/order.ts
-import { IBasketItem } from './basket';
-
-export type PaymentOption = 'card' | 'cash' | '';
-
-export interface IOrderDelivery {
-    payment: PaymentOption;
-    address: string;
-}
-
-export interface IOrderContacts {
+export interface IOrder {
+    payment: string;
     email: string;
     phone: string;
-}
-
-export interface IOrderForm {
-    products: IBasketItem[];
+    address: string;
     total: number;
-    delivery: IOrderDelivery;
-    contacts: IOrderContacts;
+    items: string[];
 }
 
-export interface IOrderModel {
-    setDelivery(delivery: IOrderDelivery): void;
-    setContacts(contacts: IOrderContacts): void;
-    validateDelivery(): boolean;
-    validateContacts(): boolean;
-    getOrderForm(products: IBasketItem[], total: number): IOrderForm;
+export interface IOrderResult {
+    id: string;
+    total: number;
+}
+
+export interface IOrderData {
+    getBasket(): TBasketItem[];
+    addProduct(item: TBasketItem): void;
+    deleteProduct(idProduct: string): void;
+    getTotal(): number;
+    setOrderField(field: keyof IOrder, value: string): void;
+    validateOrder(): boolean;
+    clearBasket(): void;
 }
